@@ -13,11 +13,11 @@ module QyWechat
     def verify_url
       if not valid_msg_signature(params)
         Rails.logger.debug("#{__FILE__}:#{__LINE__} Failure because signature is invalid")
-        render text: "", status: 401
+        render plain: "", status: 401
         return
       end
       content, status = Prpcrypt.decrypt(aes_key, params[:echostr], corp_id)
-      render text: content, status: status
+      render plain: content, status: status
     end
 
     def reply;end
